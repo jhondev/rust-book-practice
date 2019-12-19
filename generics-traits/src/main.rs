@@ -1,3 +1,5 @@
+mod traits;
+
 fn main() {
     println!("Hello generics world!");
     println!("largest number with normal function: {}", largest_number());
@@ -24,6 +26,19 @@ fn largest_number_generics(number_list: &[i32]) -> Option<&i32> {
         None => return None,
     };
     for number in number_list {
+        if number > largest {
+            largest = number
+        }
+    }
+    Some(largest)
+}
+
+fn largest<T: PartialOrd>(list: &[T]) -> Option<&T> {
+    let mut largest = match list.get(0) {
+        Some(n) => n,
+        None => return None,
+    };
+    for number in list {
         if number > largest {
             largest = number
         }
